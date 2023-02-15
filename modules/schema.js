@@ -24,6 +24,14 @@ export class Field {
     this.visibility = visibility;
     this.input = input;
   }
+
+  copy(props = null) {
+    const clone = Object.assign(new this.constructor({}), this);
+    if (props) {
+      Object.assign(clone, props);
+    }
+    return clone;
+  }
 }
 
 Field.prototype.defaultValue = null;
