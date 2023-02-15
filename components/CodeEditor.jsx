@@ -12,7 +12,6 @@ export default function CodeEditor({ value, onChange, ...props }) {
     // Update the parent state when the editor changes
     /*const updateListenerExtension = EditorView.updateListener.of((update) => {
       if (onChange && update.docChanged) {
-        debugger;
         onChange({ newValue: state.doc.toString() });
       }
     });*/
@@ -32,7 +31,6 @@ export default function CodeEditor({ value, onChange, ...props }) {
 
   // Update the editor to match the parent state
   useEffect(() => {
-    debugger;
     codeMirrorRef.current.view.dispatch({
       changes: {
         from: 0,

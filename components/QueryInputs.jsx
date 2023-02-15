@@ -19,7 +19,6 @@ export default function QueryInputs({ ...attributes }) {
     setFormState({ ...formState, ...{ view: e.newValue } });
   }
 
-  console.log(formState);
   return (
     <MultiViewPanel
       {...attributes}
