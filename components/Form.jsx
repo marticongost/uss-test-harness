@@ -1,4 +1,5 @@
 import { BooleanField, Field, FieldSet, StringField } from "../modules/schema";
+import { highlightColor } from "../modules/styles";
 import { cloneElement } from "../modules/utils";
 import OnOffSwitch from "./OnOffSwitch";
 import Switch from "./Switch";
@@ -107,7 +108,8 @@ function FormFieldSet({ fieldSet, ...props }) {
     >
       <div
         css={{
-          display: "block",
+          display: "flex",
+          alignItems: "center",
           width: "100%",
           padding: 0,
           marginBottom: "1rem",
@@ -116,6 +118,16 @@ function FormFieldSet({ fieldSet, ...props }) {
           color: "#333",
         }}
       >
+        {fieldSet.icon ? (
+          <fieldSet.icon
+            css={{
+              height: "1.2rem",
+              width: "auto",
+              marginRight: "0.5rem",
+              fill: highlightColor,
+            }}
+          />
+        ) : null}
         {fieldSet.label}
       </div>
       <div
