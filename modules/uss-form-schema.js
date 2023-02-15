@@ -14,6 +14,7 @@ export const formSchema = [
       new IntegerField({
         name: "intent",
         label: "Type",
+        defaultValue: EXPLORE_INTENT,
         choices: [
           {
             value: SEARCH_INTENT,
@@ -63,6 +64,7 @@ export const formSchema = [
         new BooleanField({
           name: inventory.shorthand,
           label: inventory.label,
+          defaultValue: true,
           visibility: (formState) =>
             inventory.appliesToIntent(formState.intent),
         })
@@ -83,17 +85,3 @@ export const formSchema = [
     ],
   }),
 ];
-
-export const initialFormState = {
-  view: "edit",
-  intent: EXPLORE_INTENT,
-  origin: "",
-  destination: "",
-  departure: "",
-  return: "",
-  enhancedLogging: false,
-};
-
-inventories.forEach(
-  (inventory) => (initialFormState[inventory.shorthand] = true)
-);
