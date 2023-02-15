@@ -49,12 +49,13 @@ export class Field {
 Field.prototype.defaultValue = null;
 
 export class FieldSet {
-  constructor({ name, label, fields, visibility, icon }) {
+  constructor({ name, label, fields, visibility, icon, styles }) {
     this.name = name;
     this.label = label;
     this.fields = fields;
     this.visibility = visibility;
     this.icon = icon;
+    this.styles = styles;
   }
 }
 

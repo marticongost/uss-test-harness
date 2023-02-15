@@ -61,6 +61,7 @@ export default function Form({ schema, values, onChange, ...attributes }) {
           fieldSet={element}
           depth={depth}
           headerContent={header}
+          css={element.styles ? element.styles(values) : null}
         >
           {content}
         </FormFieldSet>
@@ -133,11 +134,13 @@ function FormFieldSet({
   const topLevel = depth === 0;
   return (
     <div
-      css={{
-        padding: "1rem",
-        border: "1px solid #e5e5e5",
-        boxShadow: "0 0 0.5rem rgba(0,0,0,0.1)",
-      }}
+      css={[
+        {
+          padding: "1rem",
+          border: "1px solid #e5e5e5",
+          boxShadow: "0 0 0.5rem rgba(0,0,0,0.1)",
+        },
+      ]}
       {...attributes}
     >
       <div
@@ -174,7 +177,7 @@ function FormFieldSet({
             }}
           />
         ) : null}
-        {fieldSet.label}
+        <div className="fieldset-label">{fieldSet.label}</div>
         {headerContent && headerContent.length ? (
           <div css={{ marginLeft: "auto" }}>{headerContent}</div>
         ) : null}
