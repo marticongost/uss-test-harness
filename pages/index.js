@@ -43,7 +43,7 @@ export default function App() {
           alignItems: "stretch",
         }}
       >
-        <QueryInputs css={{ borderRight: "1px solid #ddd", width: "30rem" }} />
+        <QueryInputs css={{ borderRight: "1px solid #ddd", width: "40rem" }} />
         <QueryResults css={{ flex: "1 1 auto" }} />
       </main>
 
