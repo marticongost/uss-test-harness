@@ -211,7 +211,7 @@ function FormField({ field, input, ...attributes }) {
       </label>
       {cloneElement(input, {
         id: fieldId,
-        css: { flex: "1 1 auto" },
+        css: { flex: "1 1 auto", marginLeft: "auto" },
       })}
     </div>
   );
