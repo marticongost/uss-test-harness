@@ -1,6 +1,6 @@
 import Switch from "./Switch";
 
-export default function OnOffSwitch({ ...attributes }) {
+export default function OnOffSwitch({ ...baseProps }) {
   return (
     <Switch
       css={{ flex: "0 0 auto !important" }}
@@ -8,7 +8,7 @@ export default function OnOffSwitch({ ...attributes }) {
         { value: true, label: "On" },
         { value: false, label: "Off" },
       ]}
-      {...attributes}
+      {...baseProps}
     />
   );
 }
