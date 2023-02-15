@@ -14,6 +14,7 @@ export class Inventory {
     this.searchInventoryType = searchInventoryType;
     this.shorthand = shorthand;
     this.intent = intent; // bitmap of SEARCH_INTENT and EXPLORE_INTENT
+    this.icon = icon;
     // TODO: Inventory options
     // TODO: Backend and squad resources (GitHub project, GitHub link for the Protobuf schemas, Slack channel & greenflag handle)
   }
