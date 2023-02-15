@@ -1,16 +1,15 @@
 import Switch from "./Switch";
 import { sideMargin } from "../modules/styles";
 
-export default function MultiViewPanel(props) {
-  const {
-    heading,
-    children,
-    views,
-    activeView,
-    onViewChange,
-    buttons,
-    ...extraProps
-  } = props;
+export default function MultiViewPanel({
+  heading,
+  children,
+  views,
+  activeView,
+  onViewChange,
+  buttons,
+  ...attributes
+}) {
   return (
     <section
       css={{
@@ -18,7 +17,7 @@ export default function MultiViewPanel(props) {
         flexDirection: "column",
         alignItems: "stretch",
       }}
-      {...extraProps}
+      {...attributes}
     >
       <div
         css={{

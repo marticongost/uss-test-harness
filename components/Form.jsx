@@ -22,9 +22,7 @@ Field.prototype.defaultChoicesInput = new DynamicFieldInput((field) => (
   <Switch items={field.choices} />
 ));
 
-export default function Form(props) {
-  const { schema, values, onChange, ...extraProps } = props;
-
+export default function Form({ schema, values, onChange, ...attributes }) {
   function renderFormElement(element) {
     // Some parts of the schema might decree they should only be visible depending
     // on the state of other fields. F. eg. using this feature one might hide a
@@ -88,14 +86,14 @@ export default function Form(props) {
         alignItems: "stretch",
         gap: "2rem",
       }}
-      {...extraProps}
+      {...attributes}
     >
       {schema.map(renderFormElement)}
     </form>
   );
 }
 
-function FormFieldSet({ fieldSet, ...props }) {
+function FormFieldSet({ fieldSet, children, ...attributes }) {
   return (
     <div
       css={{
@@ -104,7 +102,7 @@ function FormFieldSet({ fieldSet, ...props }) {
         border: "1px solid #e5e5e5",
         boxShadow: "0 0 0.5rem rgba(0,0,0,0.1)",
       }}
-      {...props}
+      {...attributes}
     >
       <div
         css={{
@@ -138,17 +136,16 @@ function FormFieldSet({ fieldSet, ...props }) {
           gap: fieldSpacing,
         }}
       >
-        {props.children}
+        {children}
       </div>
     </div>
   );
 }
 
-function FormField(props) {
-  const { field, input, ...extraProps } = props;
+function FormField({ field, input, ...attributes }) {
   const fieldId = `field-${field.name}`;
   return (
-    <div css={{ display: "flex", alignItems: "baseline" }} {...extraProps}>
+    <div css={{ display: "flex", alignItems: "baseline" }} {...attributes}>
       <label
         htmlFor={fieldId}
         css={{ display: "table-cell", paddingRight: "1rem", width: "10rem" }}
@@ -156,7 +153,7 @@ function FormField(props) {
       >
         {field.label}
       </label>
-      {cloneElement(props.input, {
+      {cloneElement(input, {
         id: fieldId,
         css: { flex: "1 1 auto" },
       })}

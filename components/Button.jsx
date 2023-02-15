@@ -33,15 +33,14 @@ const appearences = {
   },
 };
 
-export default function Button(props) {
-  const { appearence, ...extraProps } = props;
+export default function Button({ appearence, children, ...attributes }) {
   return (
     <button
       type="button"
-      {...extraProps}
+      {...attributes}
       css={[commonStyles, appearences[appearence || "primary"]]}
     >
-      {props.children}
+      {children}
     </button>
   );
 }

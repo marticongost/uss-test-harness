@@ -9,14 +9,20 @@ import { formSchema } from "../modules/uss-form-schema";
 import { ussFormToRequest } from "../modules/uss-form-adapter";
 import { getDefaults } from "../modules/schema";
 
-export default function QueryInputs(props) {
+export default function QueryInputs({ ...attributes }) {
   const [formState, setFormState] = useState(getInitialFormState);
   const [requestJson, setRequestJson] = useState(() =>
     JSON.stringify(ussFormToRequest(formState), null, 2)
   );
+
+  function handleViewChange(e) {
+    setFormState({ ...formState, ...{ view: e.newValue } });
+  }
+
+  console.log(formState);
   return (
     <MultiViewPanel
-      {...props}
+      {...attributes}
       heading="Request"
       views={{
         edit: {
@@ -42,9 +48,7 @@ export default function QueryInputs(props) {
         },
       }}
       activeView={formState.view}
-      onViewChange={(e) =>
-        setFormState({ ...formState, ...{ view: e.newValue } })
-      }
+      onViewChange={handleViewChange}
       buttons={<Button>Send</Button>}
     />
   );
