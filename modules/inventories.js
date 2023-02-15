@@ -67,6 +67,22 @@ export const inventories = [
     shorthand: "flin",
     intent: EXPLORE_INTENT,
     icon: PlaneIcon,
+    inventoryOptions: [
+      new InventoryOption({
+        schema: [
+          new StringField({
+            name: "flinRollup",
+            label: "Rollup",
+            defaultValue: "none",
+            choices: [
+              { value: "none", label: "None" },
+              { value: "month", label: "Per month" },
+              { value: "date", label: "Per date" },
+            ],
+          }),
+        ],
+      }),
+    ],
   }),
   new Inventory({
     label: "Hotels indicative",
