@@ -69,6 +69,12 @@ export const formSchema = [
           icon: inventory.icon,
           visibility: (formState) =>
             inventory.appliesToIntent(formState.intent),
+          styles: (formState) =>
+            !formState[inventory.shorthand] && {
+              backgroundColor: "#eee",
+              ".fieldset-label": { color: "#666" },
+              svg: { fill: "#666" },
+            },
           fields: [
             new BooleanField({
               name: inventory.shorthand,
