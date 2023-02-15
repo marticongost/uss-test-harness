@@ -61,12 +61,28 @@ export const formSchema = [
     label: "Inventories",
     fields: inventories.map(
       (inventory) =>
-        new BooleanField({
+        new FieldSet({
           name: inventory.shorthand,
           label: inventory.label,
-          defaultValue: true,
+          icon: inventory.icon,
           visibility: (formState) =>
             inventory.appliesToIntent(formState.intent),
+          fields: [
+            new BooleanField({
+              name: inventory.shorthand,
+              label: "Enabled",
+              defaultValue: true,
+            }),
+            ...inventory.inventoryOptions
+              .map((option) =>
+                option.schema.map((element) =>
+                  element.copy({
+                    visibility: (formState) => formState[inventory.shorthand],
+                  })
+                )
+              )
+              .flat(),
+          ],
         })
     ),
   }),

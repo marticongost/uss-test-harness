@@ -4,23 +4,38 @@ import CarIcon from "../images/car.svg";
 import RestrictionIcon from "../images/restriction.svg";
 import ImageIcon from "../images/image.svg";
 import AdvertIcon from "../images/advert.svg";
+import { StringField } from "./schema";
 
 export const SEARCH_INTENT = 1;
 export const EXPLORE_INTENT = 2;
 
 export class Inventory {
-  constructor({ label, searchInventoryType, shorthand, intent, icon }) {
+  constructor({
+    label,
+    searchInventoryType,
+    shorthand,
+    intent,
+    icon,
+    inventoryOptions,
+  }) {
     this.label = label;
     this.searchInventoryType = searchInventoryType;
     this.shorthand = shorthand;
     this.intent = intent; // bitmap of SEARCH_INTENT and EXPLORE_INTENT
     this.icon = icon;
-    // TODO: Inventory options
+    this.inventoryOptions = inventoryOptions || [];
     // TODO: Backend and squad resources (GitHub project, GitHub link for the Protobuf schemas, Slack channel & greenflag handle)
   }
 
   appliesToIntent(intent) {
     return this.intent & intent;
+  }
+}
+
+export class InventoryOption {
+  constructor({ schema, toJson }) {
+    this.schema = schema;
+    this.toJson = toJson;
   }
 }
 
