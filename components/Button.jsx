@@ -1,7 +1,4 @@
-/*
-backgroundImage: "linear-gradient(to bottom, #6ae, #58d)",
-boxShadow: "0 0 0.3rem #24a inset",
-*/
+import { highlightColor } from "../modules/styles";
 
 const commonStyles = {
   padding: "0.5rem 1rem",
@@ -19,7 +16,7 @@ const commonStyles = {
 
 const appearences = {
   primary: {
-    backgroundImage: "linear-gradient(to bottom, #48b, #359)",
+    backgroundImage: `linear-gradient(to bottom, #48b, ${highlightColor})`,
     boxShadow: "0 0 0.3rem #136 inset",
     fontWeight: "bold",
     textShadow: "0 0 0.8rem rgba(0,0,0,0.2)",
