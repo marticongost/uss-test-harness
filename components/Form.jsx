@@ -170,9 +170,9 @@ function FormFieldSet({
         {fieldSet.icon ? (
           <fieldSet.icon
             css={{
-              height: "1.2rem",
+              height: "1.7rem",
               width: "auto",
-              marginRight: "0.5rem",
+              marginRight: "0.8rem",
               fill: highlightColor,
             }}
           />
