@@ -4,7 +4,7 @@ import CarIcon from "../images/car.svg";
 import RestrictionIcon from "../images/restriction.svg";
 import ImageIcon from "../images/image.svg";
 import AdvertIcon from "../images/advert.svg";
-import { StringField } from "./schema";
+import { BooleanField, StringField } from "./schema";
 
 export const SEARCH_INTENT = 1;
 export const EXPLORE_INTENT = 2;
@@ -97,6 +97,16 @@ export const inventories = [
     shorthand: "tr",
     intent: EXPLORE_INTENT,
     icon: RestrictionIcon,
+    inventoryOptions: [
+      new InventoryOption({
+        schema: [
+          new BooleanField({
+            name: "trCommentary",
+            label: "Commentary",
+          }),
+        ],
+      }),
+    ],
   }),
   new Inventory({
     label: "Images",
