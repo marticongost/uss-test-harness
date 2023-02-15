@@ -26,33 +26,33 @@ export const formSchema = [
           },
         ],
       }),
-    ],
-  }),
-  new FieldSet({
-    name: "locations",
-    label: "Locations",
-    fields: [
-      new StringField({
-        name: "origin",
-        label: "Origin",
+      new FieldSet({
+        name: "locations",
+        label: "Locations",
+        fields: [
+          new StringField({
+            name: "origin",
+            label: "Origin",
+          }),
+          new StringField({
+            name: "destination",
+            label: "Destination",
+          }),
+        ],
       }),
-      new StringField({
-        name: "destination",
-        label: "Destination",
-      }),
-    ],
-  }),
-  new FieldSet({
-    name: "dates",
-    label: "Dates",
-    fields: [
-      new StringField({
-        name: "departure",
-        label: "Departure",
-      }),
-      new StringField({
-        name: "return",
-        label: "Return",
+      new FieldSet({
+        name: "dates",
+        label: "Dates",
+        fields: [
+          new StringField({
+            name: "departure",
+            label: "Departure",
+          }),
+          new StringField({
+            name: "return",
+            label: "Return",
+          }),
+        ],
       }),
     ],
   }),
