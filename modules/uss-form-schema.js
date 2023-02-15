@@ -56,6 +56,27 @@ export const formSchema = [
           }),
         ],
       }),
+      new FieldSet({
+        name: "travellerContext",
+        label: "Traveller context",
+        fields: [
+          new StringField({
+            name: "market",
+            label: "Market",
+            defaultValue: "UK",
+          }),
+          new StringField({
+            name: "locale",
+            label: "Locale",
+            defaultValue: "en-GB",
+          }),
+          new StringField({
+            name: "currency",
+            label: "Currency",
+            defaultValue: "GBP",
+          }),
+        ],
+      }),
     ],
   }),
   new FieldSet({
