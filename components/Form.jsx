@@ -34,7 +34,7 @@ export default function Form(props) {
 
     if (element instanceof FieldSet) {
       return (
-        <FormFieldSet key={element.name} label={element.label}>
+        <FormFieldSet key={element.name} fieldSet={element}>
           {element.fields.map(renderFormElement)}
         </FormFieldSet>
       );
@@ -94,7 +94,7 @@ export default function Form(props) {
   );
 }
 
-function FormFieldSet(props) {
+function FormFieldSet({ fieldSet, ...props }) {
   return (
     <div
       css={{
@@ -116,7 +116,7 @@ function FormFieldSet(props) {
           color: "#333",
         }}
       >
-        {props.label}
+        {fieldSet.label}
       </div>
       <div
         css={{
