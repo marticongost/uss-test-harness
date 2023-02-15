@@ -1,4 +1,11 @@
-import { BooleanField, Field, FieldSet, StringField } from "../modules/schema";
+import {
+  BooleanField,
+  Field,
+  FieldSet,
+  FIELDSET_CONTENT,
+  FIELDSET_HEADER,
+  StringField,
+} from "../modules/schema";
 import { highlightColor, subtleLineColor } from "../modules/styles";
 import { cloneElement } from "../modules/utils";
 import OnOffSwitch from "./OnOffSwitch";
@@ -33,15 +40,35 @@ export default function Form({ schema, values, onChange, ...attributes }) {
 
     if (element instanceof FieldSet) {
       const childrenDepth = depth + 1;
+      const header = [];
+      const content = [];
+      for (const child of element.fields) {
+        const renderedChild = renderFormElement(child, childrenDepth);
+        if (renderedChild) {
+          if (
+            child instanceof FieldSet ||
+            child.placement == FIELDSET_CONTENT
+          ) {
+            content.push(renderedChild);
+          } else if (child.placement == FIELDSET_HEADER) {
+            header.push(renderedChild);
+          }
+        }
+      }
       return (
-        <FormFieldSet key={element.name} fieldSet={element} depth={depth}>
-          {element.fields.map((child) =>
-            renderFormElement(child, childrenDepth)
-          )}
+        <FormFieldSet
+          key={element.name}
+          fieldSet={element}
+          depth={depth}
+          headerContent={header}
+        >
+          {content}
         </FormFieldSet>
       );
     } else if (element instanceof Field) {
-      return (
+      return element.placement == FIELDSET_HEADER ? (
+        cloneElement(renderFieldInput(element), { key: element.name })
+      ) : (
         <FormField
           key={element.name}
           field={element}
@@ -96,8 +123,13 @@ export default function Form({ schema, values, onChange, ...attributes }) {
   );
 }
 
-function FormFieldSet({ fieldSet, depth, children, ...attributes }) {
-  console.log(fieldSet.name, depth);
+function FormFieldSet({
+  fieldSet,
+  depth,
+  children,
+  headerContent,
+  ...attributes
+}) {
   const topLevel = depth === 0;
   return (
     <div
@@ -120,19 +152,26 @@ function FormFieldSet({ fieldSet, depth, children, ...attributes }) {
             width: "100%",
             padding: 0,
             fontWeight: "bold",
-            marginBottom: "1rem",
           },
           topLevel
             ? {
                 color: "#333",
                 fontSize: "1.2rem",
+                marginBottom: "1rem",
               }
-            : {
-                color: highlightColor,
-                paddingBottom: "0.5rem",
-                borderBottom: `1px solid ${subtleLineColor}`,
-                fontSize: "1.1rem",
-              },
+            : [
+                {
+                  color: highlightColor,
+                  fontSize: "1.1rem",
+                },
+                children && children.length
+                  ? {
+                      paddingBottom: "0.5rem",
+                      borderBottom: `1px solid ${subtleLineColor}`,
+                      marginBottom: "1rem",
+                    }
+                  : null,
+              ],
         ]}
       >
         {fieldSet.icon ? (
@@ -146,17 +185,22 @@ function FormFieldSet({ fieldSet, depth, children, ...attributes }) {
           />
         ) : null}
         {fieldSet.label}
+        {headerContent && headerContent.length ? (
+          <div css={{ marginLeft: "auto" }}>{headerContent}</div>
+        ) : null}
       </div>
-      <div
-        css={{
-          marginTop: "0.4rem",
-          display: "flex",
-          flexDirection: "column",
-          gap: fieldSpacing,
-        }}
-      >
-        {children}
-      </div>
+      {children && children.length ? (
+        <div
+          css={{
+            marginTop: "0.4rem",
+            display: "flex",
+            flexDirection: "column",
+            gap: fieldSpacing,
+          }}
+        >
+          {children}
+        </div>
+      ) : null}
     </div>
   );
 }

@@ -13,8 +13,19 @@ export function getDefaults(schema) {
   return defaults;
 }
 
+export const FIELDSET_CONTENT = "fieldset-content";
+export const FIELDSET_HEADER = "fieldset-header";
+
 export class Field {
-  constructor({ name, label, defaultValue, choices, visibility, input }) {
+  constructor({
+    name,
+    label,
+    defaultValue,
+    choices,
+    visibility,
+    input,
+    placement,
+  }) {
     this.name = name;
     this.label = label;
     if (defaultValue !== undefined) {
@@ -23,6 +34,7 @@ export class Field {
     this.choices = choices;
     this.visibility = visibility;
     this.input = input;
+    this.placement = placement || FIELDSET_CONTENT;
   }
 
   copy(props = null) {
