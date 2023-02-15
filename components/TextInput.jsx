@@ -1,5 +1,4 @@
-export default function TextInput(props) {
-  const { field, onChange, ...extraProps } = props;
+export default function TextInput({ field, onChange, ...attributes }) {
   return (
     <input
       name={field.name}
@@ -8,8 +7,10 @@ export default function TextInput(props) {
         border: "1px solid #ddd",
         borderRadius: "0.1rem",
       }}
-      onChange={onChange ? (e) => onChange({ newValue: e.target.value }) : null}
-      {...props}
+      onChange={
+        onChange ? (e) => onChange({ newValue: e.target.value || "" }) : null
+      }
+      {...attributes}
     />
   );
 }
