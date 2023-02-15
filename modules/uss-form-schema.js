@@ -1,3 +1,4 @@
+import CheckBox from "../components/CheckBox";
 import {
   BooleanField,
   FieldSet,
@@ -102,6 +103,7 @@ export const formSchema = [
               label: "Enabled",
               defaultValue: true,
               placement: FIELDSET_HEADER,
+              input: CheckBox,
             }),
             ...inventory.inventoryOptions
               .map((option) =>
