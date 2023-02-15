@@ -1,115 +1,90 @@
-import Head from 'next/head';
-import styles from '../styles/Home.module.css';
+import Head from "next/head";
+import { Global } from "@emotion/react";
+import QueryInputs from "../components/QueryInputs";
+import QueryResults from "../components/QueryResults";
+import { sideMargin } from "../modules/styles";
 
-export default function Home() {
+export default function App() {
   return (
-    <div className={styles.container}>
+    <div css={{ display: "flex", flexDirection: "column", height: "100vh" }}>
       <Head>
-        <title>Create Next App</title>
+        <title>USS playground</title>
         <link rel="icon" href="/favicon.ico" />
+        <Global
+          styles={{
+            "*": {
+              fontFamily: "sans-serif",
+              boxSizing: "border-box",
+            },
+            body: {
+              margin: 0,
+              padding: 0,
+            },
+          }}
+        />
       </Head>
 
-      <main>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
+      <header
+        css={{
+          backgroundImage: "linear-gradient(to bottom, #555, #444)",
+          textShadow: "0 0 0.5rem black",
+          padding: `0.8rem ${sideMargin}`,
+          color: "#eee",
+        }}
+      >
+        <h1 css={{ margin: 0, fontSize: "1.2rem" }}>USS playground</h1>
+      </header>
 
-        <p className={styles.description}>
-          Get started by editing <code>pages/index.js</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
+      <main
+        css={{
+          flex: "1 1 auto",
+          overflow: "auto",
+          display: "flex",
+          alignItems: "stretch",
+        }}
+      >
+        <QueryInputs css={{ borderRight: "1px solid #ddd", width: "30rem" }} />
+        <QueryResults css={{ flex: "1 1 auto" }} />
       </main>
 
-      <footer>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+      <footer
+        css={{
+          backgroundColor: "#333",
+          color: "#ddd",
+          padding: `0.8rem ${sideMargin}`,
+          fontSize: "0.9rem",
+          a: {
+            color: "inherit",
+            textDecoration: "none",
+            ":hover": {
+              color: "white",
+              textDecoration: "underline",
+            },
+          },
+        }}
+      >
+        <ul
+          css={{
+            display: "flex",
+            listStyleType: "none",
+            margin: 0,
+            padding: 0,
+            gap: "1.6rem",
+            li: { margin: 0, padding: 0 },
+          }}
         >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel" className={styles.logo} />
-        </a>
+          <li>
+            <a href="https://github.skyscannertools.net/spyro/uss-playground">
+              GitHub
+            </a>
+          </li>
+          <li>
+            <a href="https://github.skyscannertools.net/unified-search/unified-search-service/tree/master/proto/unifiedsearch/unifiedsearchservice/api/v2">
+              USS Protobuf
+            </a>
+          </li>
+        </ul>
       </footer>
-
-      <style jsx>{`
-        main {
-          padding: 5rem 0;
-          flex: 1;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-        }
-        footer {
-          width: 100%;
-          height: 100px;
-          border-top: 1px solid #eaeaea;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
-        footer img {
-          margin-left: 0.5rem;
-        }
-        footer a {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          text-decoration: none;
-          color: inherit;
-        }
-        code {
-          background: #fafafa;
-          border-radius: 5px;
-          padding: 0.75rem;
-          font-size: 1.1rem;
-          font-family: Menlo, Monaco, Lucida Console, Liberation Mono,
-            DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
-        }
-      `}</style>
-
-      <style jsx global>{`
-        html,
-        body {
-          padding: 0;
-          margin: 0;
-          font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
-            Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
-            sans-serif;
-        }
-        * {
-          box-sizing: border-box;
-        }
-      `}</style>
     </div>
-  )
+  );
 }
