@@ -3,6 +3,7 @@ import {
   FieldSet,
   StringField,
   IntegerField,
+  FIELDSET_HEADER,
 } from "../modules/schema";
 import { EXPLORE_INTENT, inventories, SEARCH_INTENT } from "./inventories";
 
@@ -15,6 +16,7 @@ export const formSchema = [
         name: "intent",
         label: "Type",
         defaultValue: EXPLORE_INTENT,
+        placement: FIELDSET_HEADER,
         choices: [
           {
             value: SEARCH_INTENT,
@@ -72,6 +74,7 @@ export const formSchema = [
               name: inventory.shorthand,
               label: "Enabled",
               defaultValue: true,
+              placement: FIELDSET_HEADER,
             }),
             ...inventory.inventoryOptions
               .map((option) =>
