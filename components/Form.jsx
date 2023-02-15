@@ -133,15 +133,11 @@ function FormFieldSet({
   const topLevel = depth === 0;
   return (
     <div
-      css={
-        topLevel
-          ? {
-              padding: "1rem",
-              border: "1px solid #e5e5e5",
-              boxShadow: "0 0 0.5rem rgba(0,0,0,0.1)",
-            }
-          : { marginTop: "1rem" }
-      }
+      css={{
+        padding: "1rem",
+        border: "1px solid #e5e5e5",
+        boxShadow: "0 0 0.5rem rgba(0,0,0,0.1)",
+      }}
       {...attributes}
     >
       <div
@@ -153,25 +149,19 @@ function FormFieldSet({
             padding: 0,
             fontWeight: "bold",
           },
+          children &&
+            children.length && {
+              marginBottom: "1rem",
+            },
           topLevel
             ? {
                 color: "#333",
                 fontSize: "1.2rem",
-                marginBottom: "1rem",
               }
-            : [
-                {
-                  color: highlightColor,
-                  fontSize: "1.1rem",
-                },
-                children && children.length
-                  ? {
-                      paddingBottom: "0.5rem",
-                      borderBottom: `1px solid ${subtleLineColor}`,
-                      marginBottom: "1rem",
-                    }
-                  : null,
-              ],
+            : {
+                color: highlightColor,
+                fontSize: "1.1rem",
+              },
         ]}
       >
         {fieldSet.icon ? (
