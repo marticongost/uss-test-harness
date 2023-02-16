@@ -16,8 +16,8 @@ const commonStyles = {
 
 const appearences = {
   primary: {
-    backgroundImage: `linear-gradient(to bottom, #48b, ${highlightColor})`,
-    boxShadow: "0 0 0.3rem #136 inset",
+    backgroundImage: `linear-gradient(to bottom, #37a, ${highlightColor})`,
+    boxShadow: "0 0 0.2rem #136 inset",
     fontWeight: "bold",
     textShadow: "0 0 0.8rem rgba(0,0,0,0.2)",
     ":hover": {

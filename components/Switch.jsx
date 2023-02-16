@@ -39,14 +39,14 @@ export default function Switch({
                 fontSize: "1rem",
                 "&[aria-selected='false']": {
                   cursor: "pointer",
-                  backgroundImage: "linear-gradient(to bottom, #999, #777)",
-                  boxShadow: "0 0 0.3rem #444 inset",
-                  color: "#eee",
+                  backgroundImage: "linear-gradient(to bottom, white, #e0e0e0)",
+                  boxShadow: "0 0 0.2rem #999 inset",
+                  color: "#888",
                   svg: {
-                    fill: "#eee",
+                    fill: "#888",
                   },
                   ":hover": {
-                    backgroundImage: "linear-gradient(to bottom, #aaa, #888)",
+                    backgroundImage: "linear-gradient(to bottom, white, #eee)",
                   },
                 },
                 "&[aria-selected='true']": {
