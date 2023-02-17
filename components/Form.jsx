@@ -158,12 +158,12 @@ function FormFieldSet({
             },
           topLevel
             ? {
-                color: "#333",
                 fontSize: "1.2rem",
+                color: "#333",
               }
             : {
-                color: highlightColor,
                 fontSize: "1.1rem",
+                color: highlightColor,
               },
         ]}
       >

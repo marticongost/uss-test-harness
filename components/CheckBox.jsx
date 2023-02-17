@@ -18,21 +18,17 @@ export default function CheckBox({ field, value, onChange, ...attributes }) {
         appearance: "none",
         MozAppearance: "none",
         WebkitAppearance: "none",
-        border: `2px solid ${highlightColor}`,
+        border: "2px solid #999",
         borderRadius: "0.3rem",
         backgroundColor: "white",
         cursor: "pointer",
-        transition: "transform 0.1s linear",
-        ":checked": {
-          borderColor: highlightColor,
-        },
         ":after": {
           content: "'✔'",
           position: "absolute",
           left: "0.1rem",
           top: "0rem",
           fontSize: "1rem",
-          color: highlightColor,
+          color: "#666",
           opacity: 0,
           transition: "opacity 0.1s linear",
         },
@@ -40,7 +36,7 @@ export default function CheckBox({ field, value, onChange, ...attributes }) {
           opacity: 1,
         },
         ":hover": {
-          transform: "scale(1.2)",
+          borderColor: highlightColor,
         },
       }}
       {...attributes}
