@@ -86,6 +86,35 @@ export class SingleDate {
   toString() {
     return `${this.day} ${monthAbbr[this.month - 1]} ${this.year}`;
   }
+
+  static fromDate(date) {
+    return new this(date.getFullYear(), date.getMonth() + 1, date.getDate());
+  }
+
+  compare(date) {
+    const otherYear = date instanceof Date ? date.getFullYear() : date.year;
+    if (this.year < otherYear) {
+      return -1;
+    } else if (this.year > otherYear) {
+      return 1;
+    }
+
+    const otherMonth = date instanceof Date ? date.getMonth() + 1 : date.month;
+    if (this.month < otherMonth) {
+      return -1;
+    } else if (this.month > otherMonth) {
+      return 1;
+    }
+
+    const otherDay = date instanceof Date ? date.getDate() : date.day;
+    if (this.day < otherDay) {
+      return -1;
+    } else if (this.day > otherDay) {
+      return 1;
+    }
+
+    return 0;
+  }
 }
 
 export class DateRange {
@@ -95,6 +124,6 @@ export class DateRange {
   }
 
   toString() {
-    return `${this.start} to ${this.end}`;
+    return `${this.start} - ${this.end}`;
   }
 }

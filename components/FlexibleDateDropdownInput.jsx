@@ -8,6 +8,7 @@ import {
   SingleDate,
   monthAbbr,
   weekdayAbbr,
+  DateRange,
 } from "../modules/dates";
 import { useState } from "react";
 import { range } from "../modules/utils";
@@ -47,6 +48,9 @@ function FlexibleDateInput({ field, value, onChange, ...attributes }) {
       )}
       {dateType == "SingleDate" && (
         <DateSelector value={value} onChange={onChange} />
+      )}
+      {dateType == "DateRange" && (
+        <DateRangeSelector value={value} onChange={onChange} />
       )}
     </div>
   );
@@ -128,10 +132,6 @@ function DateSelector({ value, onChange, ...attributes }) {
   const [month, setMonth] = useState(
     value && value.month !== undefined ? value.month : now.getMonth() + 1
   );
-
-  const daySeparation = "0.3rem";
-  const cellWidth = `calc((100% - ${daySeparation} * 6) / 7)`;
-
   return (
     <div
       css={{ display: "flex", flexDirection: "column", gap: "1rem" }}
@@ -147,73 +147,177 @@ function DateSelector({ value, onChange, ...attributes }) {
           onChange={(e) => setMonth(e.newValue)}
         />
       </div>
-      <div css={{ display: "flex", flexWrap: "wrap", gap: daySeparation }}>
-        {weekdayAbbr.map((weekday) => (
-          <div
-            key={weekday}
-            css={{
-              width: cellWidth,
-              fontSize: "0.8rem",
-              textAlign: "center",
-              color: "#666",
-            }}
-          >
-            {weekday}
-          </div>
-        ))}
-        {getCalendarRows(year, month).map((row) =>
-          row.map((date) => {
-            const isSelected =
-              value &&
-              value.year == date.getFullYear() &&
-              value.month == date.getMonth() + 1 &&
-              value.day == date.getDate();
-            const isWeekend = date.getDay() == 6 || date.getDay() == 0;
-            return (
-              <button
-                key={date.toString()}
-                type="button"
-                value={date}
-                onClick={(e) => {
-                  if (onChange) {
-                    onChange({
-                      newValue: new SingleDate(
-                        date.getFullYear(),
-                        date.getMonth() + 1,
-                        date.getDate()
-                      ),
-                    });
-                  }
-                }}
-                css={[
-                  {
-                    border: "none",
-                    borderRadius: "0.2rem",
-                    height: "2rem",
-                    width: cellWidth,
-                  },
-                  isSelected ? selectedOptionStyles : optionStyles,
-                  !isSelected &&
-                    date.getMonth() + 1 != month && {
-                      opacity: 0.3,
-                    },
-                  !isSelected &&
-                    isWeekend && {
-                      backgroundImage: "linear-gradient(to bottom, #bcd, #abc)",
-                      boxShadowColor: "#9ab",
-                      ":hover": {
-                        backgroundImage:
-                          "linear-gradient(to bottom, #cde, #bcd)",
-                      },
-                    },
-                ]}
-              >
-                {date.getDate()}
-              </button>
-            );
-          })
-        )}
+      <CalendarPage
+        year={year}
+        month={month}
+        isSelected={(date) => value && value.compare(date) == 0}
+        onChange={onChange}
+      />
+    </div>
+  );
+}
+
+function DateRangeSelector({ value, onChange, ...attributes }) {
+  const now = new Date();
+  const [startDate, setStartDate] = useState(null);
+  const [startYear, setStartYear] = useState(
+    value?.start?.year !== undefined ? value.start.year : now.getFullYear()
+  );
+  const [endYear, setEndYear] = useState(
+    value?.end?.year !== undefined ? value.end.year : now.getFullYear()
+  );
+  const [startMonth, setStartMonth] = useState(
+    value?.start?.month !== undefined ? value.start.month : now.getMonth() + 1
+  );
+  const [endMonth, setEndMonth] = useState(
+    value?.end?.month !== undefined ? value.end.month : now.getMonth() + 1
+  );
+
+  function handleYearChange(e) {
+    startDate ? setEndYear(e.newValue) : setStartYear(e.newValue);
+  }
+
+  function handleMonthChange(e) {
+    startDate ? setEndMonth(e.newValue) : setStartMonth(e.newValue);
+  }
+
+  function handleDaySelected(e) {
+    if (startDate) {
+      const comparison = startDate.compare(e.newValue);
+      if (comparison == 0) {
+        setStartDate(null);
+        return;
+      } else if (comparison < 0) {
+        setStartDate(null);
+        if (onChange) {
+          onChange({
+            newValue: new DateRange(startDate, e.newValue),
+          });
+        }
+      }
+    } else {
+      setStartDate(e.newValue);
+    }
+  }
+
+  const year = startDate ? endYear : startYear;
+  const month = startDate ? endMonth : startMonth;
+
+  return (
+    <div
+      css={{ display: "flex", flexDirection: "column", gap: "1rem" }}
+      {...attributes}
+    >
+      <div css={{ display: "flex" }}>
+        <NumberInput value={year} onChange={handleYearChange} />
+        <NumberInput
+          value={month}
+          min={1}
+          max={12}
+          cycleAround={true}
+          onChange={handleMonthChange}
+        />
       </div>
+      <CalendarPage
+        year={year}
+        month={month}
+        selectingRange={!!startDate}
+        isSelected={(date, hoveredDate) => {
+          if (startDate) {
+            if (hoveredDate) {
+              return startDate.compare(date) <= 0 && hoveredDate >= date;
+            } else {
+              return startDate.compare(date) == 0;
+            }
+          } else if (value && value instanceof DateRange) {
+            return (
+              value.start.compare(date) <= 0 && value.end.compare(date) >= 0
+            );
+          }
+          return false;
+        }}
+        onChange={handleDaySelected}
+      />
+    </div>
+  );
+}
+
+function CalendarPage({
+  year,
+  month,
+  isSelected,
+  selectingRange,
+  onChange,
+  ...attributes
+}) {
+  const [hoveredDate, setHoveredDate] = useState(null);
+  const daySeparation = "0.3rem";
+  const cellWidth = `calc((100% - ${daySeparation} * 6) / 7)`;
+  return (
+    <div
+      css={{ display: "flex", flexWrap: "wrap", gap: daySeparation }}
+      {...attributes}
+    >
+      {weekdayAbbr.map((weekday) => (
+        <div
+          key={weekday}
+          css={{
+            width: cellWidth,
+            fontSize: "0.8rem",
+            textAlign: "center",
+            color: "#666",
+          }}
+        >
+          {weekday}
+        </div>
+      ))}
+      {getCalendarRows(year, month).map((row) =>
+        row.map((date) => {
+          const isWeekend = date.getDay() == 6 || date.getDay() == 0;
+          const selected = isSelected(date, hoveredDate);
+          return (
+            <button
+              key={date.toString()}
+              type="button"
+              value={date}
+              onMouseOver={(e) => {
+                if (selectingRange) {
+                  setHoveredDate(date);
+                }
+              }}
+              onClick={(e) => {
+                setHoveredDate(null);
+                if (onChange) {
+                  onChange({ newValue: SingleDate.fromDate(date) });
+                }
+              }}
+              css={[
+                {
+                  border: "none",
+                  borderRadius: "0.2rem",
+                  height: "2rem",
+                  width: cellWidth,
+                },
+                selected ? selectedOptionStyles : optionStyles,
+                !selected &&
+                  date.getMonth() + 1 != month && {
+                    opacity: 0.3,
+                  },
+                !selected &&
+                  isWeekend && {
+                    backgroundImage: "linear-gradient(to bottom, #bcd, #abc)",
+                    boxShadowColor: "#9ab",
+                    ":hover": {
+                      backgroundImage: "linear-gradient(to bottom, #cde, #bcd)",
+                    },
+                  },
+              ]}
+            >
+              {date.getDate()}
+            </button>
+          );
+        })
+      )}
     </div>
   );
 }
