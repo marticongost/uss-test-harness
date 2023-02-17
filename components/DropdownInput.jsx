@@ -17,7 +17,7 @@ export default function DropdownInput({
   // Close the dropdown when clicking anywhere else in the document
   useEffect(() => {
     const listener = document.addEventListener("click", (e) => {
-      if (!ref.current.contains(e.target)) {
+      if (ref.current && !ref.current.contains(e.target)) {
         setExpanded(false);
       }
     });
