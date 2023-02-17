@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import ChevronDownIcon from "../images/chevron-down.svg";
 import { highlightColor, textBoxStyles } from "../modules/styles";
 import { createElement } from "../modules/utils";
@@ -11,7 +11,18 @@ export default function DropdownInput({
   label,
   ...attributes
 }) {
+  const ref = useRef();
   const [expanded, setExpanded] = useState(false);
+
+  // Close the dropdown when clicking anywhere else in the document
+  useEffect(() => {
+    const listener = document.addEventListener("click", (e) => {
+      if (!ref.current.contains(e.target)) {
+        setExpanded(false);
+      }
+    });
+    return () => document.removeEventListener("click", listener);
+  }, []);
 
   function handleChange(e) {
     if (onChange) {
@@ -22,6 +33,7 @@ export default function DropdownInput({
 
   return (
     <div
+      ref={ref}
       css={{ display: "flex", flexDirection: "column", alignItems: "stretch" }}
       {...attributes}
     >
