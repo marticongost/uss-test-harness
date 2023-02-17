@@ -50,6 +50,16 @@ export const formSchema = [
         name: "dates",
         label: "Dates",
         fields: [
+          new BooleanField({
+            name: "oneWay",
+            label: "One way trip",
+            defaultValue: false,
+            choices: [
+              { value: true, label: "One way" },
+              { value: false, label: "Roundtrip" },
+            ],
+            placement: FIELDSET_HEADER,
+          }),
           new Field({
             name: "departure",
             label: "Departure",
@@ -61,6 +71,7 @@ export const formSchema = [
             label: "Return",
             defaultValue: anytime,
             input: FlexibleDateDropdownInput,
+            visibility: (formState) => !formState["oneWay"],
           }),
         ],
       }),
