@@ -12,6 +12,14 @@ export default function DropdownInput({
   ...attributes
 }) {
   const [expanded, setExpanded] = useState(false);
+
+  function handleChange(e) {
+    if (onChange) {
+      onChange(e);
+    }
+    setExpanded(false);
+  }
+
   return (
     <div
       css={{ display: "flex", flexDirection: "column", alignItems: "stretch" }}
@@ -41,6 +49,7 @@ export default function DropdownInput({
           css={[
             {
               position: "absolute",
+              zIndex: 1000,
               opacity: 1,
               transition: "opacity 0.2s ease",
               boxShadow: "0 0 0.5rem rgba(0,0,0,0.2)",
@@ -53,7 +62,7 @@ export default function DropdownInput({
             !expanded && { opacity: 0, pointerEvents: "none" },
           ]}
         >
-          {createElement(input, { field, value, onChange })}
+          {createElement(input, { field, value, onChange: handleChange })}
         </div>
       </div>
     </div>
