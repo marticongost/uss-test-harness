@@ -1,3 +1,5 @@
+import { optionStyles, selectedOptionStyles } from "../modules/styles";
+
 export default function Switch({
   field,
   value,
@@ -33,28 +35,11 @@ export default function Switch({
               {
                 flex: "1 1 auto",
                 padding: "0.5rem 1rem",
-                color: "white",
                 border: "none",
                 borderRadius: "0.3rem",
                 fontSize: "1rem",
-                "&[aria-selected='false']": {
-                  cursor: "pointer",
-                  backgroundImage: "linear-gradient(to bottom, white, #e0e0e0)",
-                  boxShadow: "0 0 0.2rem #999 inset",
-                  color: "#888",
-                  svg: {
-                    fill: "#888",
-                  },
-                  ":hover": {
-                    backgroundImage: "linear-gradient(to bottom, white, #eee)",
-                  },
-                },
-                "&[aria-selected='true']": {
-                  backgroundImage: "linear-gradient(to bottom, #444, #222)",
-                  boxShadow: "0 0 0.3rem #111 inset",
-                  fontWeight: "bold",
-                  textShadow: "0 0 0.3rem black",
-                },
+                "&[aria-selected='false']": optionStyles,
+                "&[aria-selected='true']": selectedOptionStyles,
                 svg: {
                   height: "1rem",
                   width: "auto",
