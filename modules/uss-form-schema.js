@@ -1,11 +1,14 @@
 import CheckBox from "../components/CheckBox";
+import FlexibleDateDropdownInput from "../components/FlexibleDateDropdownInput";
 import {
   BooleanField,
+  Field,
   FieldSet,
   StringField,
   IntegerField,
   FIELDSET_HEADER,
 } from "../modules/schema";
+import { anytime } from "./dates";
 import { EXPLORE_INTENT, inventories, SEARCH_INTENT } from "./inventories";
 
 export const formSchema = [
@@ -47,13 +50,17 @@ export const formSchema = [
         name: "dates",
         label: "Dates",
         fields: [
-          new StringField({
+          new Field({
             name: "departure",
             label: "Departure",
+            defaultValue: anytime,
+            input: FlexibleDateDropdownInput,
           }),
-          new StringField({
+          new Field({
             name: "return",
             label: "Return",
+            defaultValue: anytime,
+            input: FlexibleDateDropdownInput,
           }),
         ],
       }),
