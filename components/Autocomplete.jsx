@@ -4,7 +4,7 @@ import Dropdown from "./Dropdown";
 import Spinner from "./Spinner";
 import TextInput from "./TextInput";
 
-const fetchDelay = 200;
+const fetchDelay = 100;
 
 export default function Autocomplete({
   field,
