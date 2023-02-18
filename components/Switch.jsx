@@ -41,7 +41,7 @@ export default function Switch({
                 padding: "0.5rem 1rem",
                 border: "none",
                 borderRadius: "0.3rem",
-                fontSize: "1rem",
+                fontSize: "0.9rem",
                 "&[aria-selected='false']": optionStyles,
                 "&[aria-selected='true']": selectedOptionStyles,
                 svg: {
