@@ -1,5 +1,7 @@
 import CheckBox from "../components/CheckBox";
 import FlexibleDateDropdownInput from "../components/FlexibleDateDropdownInput";
+import OriginAutocomplete from "../components/OriginAutocomplete";
+import DestinationAutocomplete from "../components/OriginAutocomplete";
 import {
   BooleanField,
   Field,
@@ -36,13 +38,15 @@ export const formSchema = [
         name: "locations",
         label: "Locations",
         fields: [
-          new StringField({
+          new Field({
             name: "origin",
             label: "Origin",
+            input: OriginAutocomplete,
           }),
-          new StringField({
+          new Field({
             name: "destination",
             label: "Destination",
+            input: DestinationAutocomplete,
           }),
         ],
       }),
