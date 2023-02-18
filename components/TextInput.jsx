@@ -7,7 +7,7 @@ export default function TextInput({ field, value, onChange, ...attributes }) {
       css={textBoxStyles}
       value={value}
       data-lpignore="true"
-      spellcheck="false"
+      spellCheck="false"
       onChange={
         onChange ? (e) => onChange({ newValue: e.target.value || "" }) : null
       }
