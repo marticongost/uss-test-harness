@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import ChevronDownIcon from "../images/chevron-down.svg";
 import { highlightColor, textBoxStyles } from "../modules/styles";
 import { createElement } from "../modules/utils";
+import Dropdown from "./Dropdown";
 
 export default function DropdownInput({
   field,
@@ -56,27 +57,9 @@ export default function DropdownInput({
           css={{ height: "0.5rem", width: "auto", fill: "#333" }}
         />
       </button>
-      <div css={{ position: "relative" }}>
-        <div
-          css={[
-            {
-              position: "absolute",
-              zIndex: 1000,
-              opacity: 1,
-              transition: "opacity 0.2s ease",
-              boxShadow: "0 0 0.5rem rgba(0,0,0,0.2)",
-              backgroundColor: "white",
-              border: "1px solid #ddd",
-              padding: "1rem",
-              borderBottomLeftRadius: "0.3rem",
-              borderBottomRightRadius: "0.3rem",
-            },
-            !expanded && { opacity: 0, pointerEvents: "none" },
-          ]}
-        >
-          {createElement(input, { field, value, onChange: handleChange })}
-        </div>
-      </div>
+      <Dropdown expanded={expanded}>
+        {createElement(input, { field, value, onChange: handleChange })}
+      </Dropdown>
     </div>
   );
 }
