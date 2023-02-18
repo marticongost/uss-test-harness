@@ -52,7 +52,9 @@ export const formSchema = [
           new Field({
             name: "destination",
             label: "Destination",
-            input: DestinationAutocomplete,
+            input: (
+              <DestinationAutocomplete placeholder="Leave blank to travel anywhere" />
+            ),
           }),
         ],
       }),
