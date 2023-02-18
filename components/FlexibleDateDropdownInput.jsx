@@ -150,7 +150,9 @@ function DateSelector({ value, onChange, ...attributes }) {
       <CalendarPage
         year={year}
         month={month}
-        isSelected={(date) => value && value.compare(date) == 0}
+        isSelected={(date) =>
+          value && value instanceof SingleDate && value.compare(date) == 0
+        }
         onChange={onChange}
       />
     </div>
