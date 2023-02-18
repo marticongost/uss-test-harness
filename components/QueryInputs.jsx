@@ -12,11 +12,20 @@ import { getDefaults } from "../modules/schema";
 export default function QueryInputs({ ...attributes }) {
   const [formState, setFormState] = useState(getInitialFormState);
   const [requestJson, setRequestJson] = useState(() =>
-    JSON.stringify(ussFormToRequest(formState), null, 2)
+    getRequestJson(formState)
   );
+
+  function getRequestJson(formState) {
+    return JSON.stringify(ussFormToRequest(formState), null, 2);
+  }
 
   function handleViewChange(e) {
     setFormState({ ...formState, ...{ view: e.newValue } });
+  }
+
+  function handleFormStateChange(newState) {
+    setFormState(newState);
+    setRequestJson(getRequestJson(newState));
   }
 
   return (
@@ -31,7 +40,7 @@ export default function QueryInputs({ ...attributes }) {
             <Form
               schema={formSchema}
               values={formState}
-              onChange={setFormState}
+              onChange={handleFormStateChange}
             />
           ),
         },
