@@ -12,6 +12,12 @@ import {
 } from "../modules/schema";
 import { anytime } from "./dates";
 import { EXPLORE_INTENT, inventories, SEARCH_INTENT } from "./inventories";
+import {
+  GEO_LEVEL_COUNTRY,
+  GEO_LEVEL_LOCAL,
+  GEO_LEVEL_POI,
+  GEO_LEVEL_REGION,
+} from "./uss-geolevels";
 
 export const formSchema = [
   new FieldSet({
@@ -76,6 +82,24 @@ export const formSchema = [
             defaultValue: anytime,
             input: FlexibleDateDropdownInput,
             visibility: (formState) => !formState["oneWay"],
+          }),
+        ],
+      }),
+      new FieldSet({
+        name: "targetGeoLevel",
+        label: "Target geo level",
+        fields: [
+          new StringField({
+            name: "targetGeoLevel",
+            label: "Target geo level",
+            defaultValue: GEO_LEVEL_COUNTRY,
+            choices: [
+              { value: GEO_LEVEL_COUNTRY, label: "Country" },
+              { value: GEO_LEVEL_LOCAL, label: "Local" },
+              { value: GEO_LEVEL_REGION, label: "Region" },
+              { value: GEO_LEVEL_POI, label: "POI" },
+            ],
+            placement: FIELDSET_HEADER,
           }),
         ],
       }),
