@@ -38,6 +38,10 @@ export default function CheckBox({ field, value, onChange, ...attributes }) {
         ":hover": {
           borderColor: highlightColor,
         },
+        ":focus": {
+          outline: "none",
+          borderColor: highlightColor,
+        },
       }}
       {...attributes}
       onChange={handleChange}

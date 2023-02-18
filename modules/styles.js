@@ -7,6 +7,9 @@ export const textBoxStyles = {
   border: "1px solid #ddd",
   borderRadius: "0.1rem",
   backgroundColor: "white",
+  ":focus": {
+    outlineColor: highlightColor,
+  },
 };
 
 export const optionStyles = {

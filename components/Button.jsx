@@ -12,6 +12,9 @@ const commonStyles = {
     width: "auto",
     fill: "white",
   },
+  ":focus": {
+    outlineColor: highlightColor,
+  },
 };
 
 const appearences = {

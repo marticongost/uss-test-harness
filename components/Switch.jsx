@@ -1,4 +1,8 @@
-import { optionStyles, selectedOptionStyles } from "../modules/styles";
+import {
+  highlightColor,
+  optionStyles,
+  selectedOptionStyles,
+} from "../modules/styles";
 
 export default function Switch({
   field,
@@ -44,6 +48,9 @@ export default function Switch({
                   height: "1rem",
                   width: "auto",
                   fill: "white",
+                },
+                ":focus": {
+                  outlineColor: highlightColor,
                 },
               },
               index > 0 && {
