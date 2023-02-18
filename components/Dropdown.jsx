@@ -11,7 +11,6 @@ export default function Dropdown({ expanded, children, ...attributes }) {
             boxShadow: "0 0 0.5rem rgba(0,0,0,0.2)",
             backgroundColor: "white",
             border: "1px solid #ddd",
-            padding: "1rem",
             borderBottomLeftRadius: "0.3rem",
             borderBottomRightRadius: "0.3rem",
           },

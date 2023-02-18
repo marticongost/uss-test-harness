@@ -30,7 +30,12 @@ function FlexibleDateInput({ field, value, onChange, ...attributes }) {
 
   return (
     <div
-      css={{ display: "flex", flexDirection: "column", gap: "1rem" }}
+      css={{
+        display: "flex",
+        flexDirection: "column",
+        gap: "1rem",
+        padding: "1rem",
+      }}
       {...attributes}
     >
       <Switch
