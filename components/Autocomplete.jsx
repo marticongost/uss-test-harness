@@ -11,6 +11,7 @@ export default function Autocomplete({
   value,
   onChange,
   fetchSuggestions,
+  placeholder,
   ...attributes
 }) {
   const [query, setQuery] = useState(value?.title || "");
@@ -90,6 +91,7 @@ export default function Autocomplete({
         onChange={handleQueryChange}
         onKeyDown={handleKeyDown}
         autoComplete="off"
+        placeholder={placeholder}
       />
       <Dropdown expanded={expanded}>
         <AutocompleteSuggestions
