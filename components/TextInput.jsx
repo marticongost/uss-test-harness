@@ -6,6 +6,7 @@ export default function TextInput({ field, value, onChange, ...attributes }) {
       name={field?.name}
       css={textBoxStyles}
       value={value}
+      data-lpignore="true"
       onChange={
         onChange ? (e) => onChange({ newValue: e.target.value || "" }) : null
       }
