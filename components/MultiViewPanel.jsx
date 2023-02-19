@@ -42,13 +42,15 @@ export default function MultiViewPanel({
         >
           {heading}
         </h1>
-        <Switch
-          value={activeView}
-          items={Object.entries(views).map(([value, item]) => {
-            return { ...item, value };
-          })}
-          onChange={onViewChange}
-        />
+        {views && (
+          <Switch
+            value={activeView}
+            items={Object.entries(views).map(([value, item]) => {
+              return { ...item, value };
+            })}
+            onChange={onViewChange}
+          />
+        )}
         {buttons}
       </div>
       <div
@@ -58,7 +60,7 @@ export default function MultiViewPanel({
           overflow: "auto",
         }}
       >
-        {views[activeView]?.content}
+        {views && views[activeView]?.content}
       </div>
     </section>
   );
