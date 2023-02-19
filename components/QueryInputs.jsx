@@ -8,8 +8,9 @@ import MultiViewPanel from "./MultiViewPanel";
 import { formSchema } from "../modules/uss-form-schema";
 import { ussFormToRequest } from "../modules/uss-form-adapter";
 import { getDefaults } from "../modules/schema";
+import UssQuery from "../modules/ussquery";
 
-export default function QueryInputs({ ...attributes }) {
+export default function QueryInputs({ onUssQueryCompleted, ...attributes }) {
   const [formState, setFormState] = useState(getInitialFormState);
   const [requestJson, setRequestJson] = useState(() =>
     getRequestJson(formState)
@@ -26,6 +27,18 @@ export default function QueryInputs({ ...attributes }) {
   function handleFormStateChange(newState) {
     setFormState(newState);
     setRequestJson(getRequestJson(newState));
+  }
+
+  function handleSubmit(e) {
+    fetch("/api/uss/create-search", {
+      method: "POST",
+      body: requestJson,
+      headers: { "Content-Type": "application/json" },
+    })
+      .then((response) => response.json())
+      .then((responseData) =>
+        onUssQueryCompleted(new UssQuery(formState, requestJson, responseData))
+      );
   }
 
   return (
@@ -57,7 +70,7 @@ export default function QueryInputs({ ...attributes }) {
       }}
       activeView={formState.view}
       onViewChange={handleViewChange}
-      buttons={<Button>Send</Button>}
+      buttons={<Button onClick={handleSubmit}>Send</Button>}
     />
   );
 }

@@ -3,8 +3,10 @@ import { Global } from "@emotion/react";
 import QueryInputs from "../components/QueryInputs";
 import QueryResults from "../components/QueryResults";
 import { sideMargin } from "../modules/styles";
+import { useState } from "react";
 
 export default function App() {
+  const [ussQuery, setUssQuery] = useState(null);
   return (
     <div css={{ display: "flex", flexDirection: "column", height: "100vh" }}>
       <Head>
@@ -43,8 +45,11 @@ export default function App() {
           alignItems: "stretch",
         }}
       >
-        <QueryInputs css={{ borderRight: "1px solid #ddd", width: "40rem" }} />
-        <QueryResults css={{ flex: "1 1 auto" }} />
+        <QueryInputs
+          onUssQueryCompleted={setUssQuery}
+          css={{ borderRight: "1px solid #ddd", width: "40rem" }}
+        />
+        <QueryResults ussQuery={ussQuery} css={{ flex: "1 1 auto" }} />
       </main>
 
       <footer
