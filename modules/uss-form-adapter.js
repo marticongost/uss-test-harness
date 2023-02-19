@@ -9,10 +9,10 @@ import {
 } from "./uss-geolevels";
 
 export function ussFormToRequest(formState) {
-  const response = { requestContext: ussFormToRequestContext(formState) };
+  const response = { request_context: ussFormToRequestContext(formState) };
 
   if (formState.intent == EXPLORE_INTENT) {
-    response.exploreIntent = ussFormToExploreIntent(formState);
+    response.explore_intent = ussFormToExploreIntent(formState);
   }
 
   return response;
@@ -32,9 +32,9 @@ function ussFormToRequestContext(formState) {
         continue;
       }
       requestContext.inventory.push({
-        inventoryType: inventory.searchInventoryType,
-        responseMessageDescriptor: {
-          messageDescriptorFullName: inventory.descriptors[0],
+        inventory_type: inventory.searchInventoryType,
+        response_message_descriptor: {
+          message_descriptor_full_name: inventory.descriptors[0],
         },
       });
     }
@@ -44,36 +44,38 @@ function ussFormToRequestContext(formState) {
 
 function ussFormToExploreIntent(formState) {
   const intent = {
-    travellerContext: {
+    traveller_context: {
       market: formState.market,
       locale: formState.locale,
       currency: formState.currency,
     },
-    targetGeoLevel: formState.targetGeoLevel,
+    target_geo_level: formState.targetGeoLevel,
   };
 
   if (formState.origin) {
-    intent.origin = { travelEntityId: formState.origin.id };
+    intent.origin = { travel_entity_id: formState.origin.id };
   }
 
   if (formState.destination) {
     intent.destination = {
       locations: {
-        geoLevel: fenryrLocationTypeToGeoLevel(formState.destination.type),
-        location: [{ travelEntityId: formState.destination.id }],
+        geo_level: fenryrLocationTypeToGeoLevel(formState.destination.type),
+        location: [{ travel_entity_id: formState.destination.id }],
       },
     };
   } else {
     intent.destination = {
-      locations: { geoLevel: GEO_LEVEL_ANYWHERE },
+      locations: { geo_level: GEO_LEVEL_ANYWHERE },
     };
   }
 
-  intent.travelDates = {
-    departure: ussFormValueToFlexibleDate(formState.departure),
+  intent.travel_dates = {
+    departure_date: ussFormValueToFlexibleDate(formState.departure),
   };
   if (!formState.oneWay) {
-    intent.travelDates.return = ussFormValueToFlexibleDate(formState.return);
+    intent.travel_dates.return_date = ussFormValueToFlexibleDate(
+      formState.return
+    );
   }
   return intent;
 }
