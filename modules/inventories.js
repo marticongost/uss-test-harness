@@ -100,7 +100,7 @@ export const inventories = [
   }),
   new Inventory({
     label: "Travel Restrictions",
-    searchInventoryType: "TRAVEL_RESTRICTIONS",
+    searchInventoryType: "SEARCH_INVENTORY_TYPE_TRAVEL_RESTRICTIONS",
     descriptors: [
       "net.skyscanner.martech.travelrestrictions.v2.USSExploreResponseTOC",
     ],
@@ -120,7 +120,7 @@ export const inventories = [
   }),
   new Inventory({
     label: "Images",
-    searchInventoryType: "LOCATION_IMAGES",
+    searchInventoryType: "SEARCH_INVENTORY_TYPE_LOCATION_IMAGES",
     descriptors: ["net.skyscanner.martech.postcard.v1.TOCv1"],
     shorthand: "img",
     intent: EXPLORE_INTENT,
@@ -128,7 +128,7 @@ export const inventories = [
   }),
   new Inventory({
     label: "Adverts",
-    searchInventoryType: "ADVERTS",
+    searchInventoryType: "SEARCH_INVENTORY_TYPE_ADVERTS",
     descriptors: [
       "net.skyscanner.adverts.adsretrievalservice.api.rpc.v1.AdsUssResponseToC",
     ],
