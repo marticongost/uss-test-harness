@@ -28,20 +28,22 @@ export default function UssResponseInspector({ ussQuery, ...attributes }) {
           >
             <button
               type="button"
+              onClick={(e) => setActiveInventory(inventory.searchInventoryType)}
               data-active={
                 activeInventory == inventory.searchInventoryType
                   ? "true"
                   : "false"
               }
-              onClick={(e) => setActiveInventory(inventory.searchInventoryType)}
               css={{
-                display: "flex",
-                alignItems: "center",
-                gap: "0.5rem",
                 background: "none",
                 border: "none",
                 cursor: "pointer",
                 color: inactiveColor,
+                textAlign: "left",
+                display: "flex",
+                gap: "0.5rem",
+                alignItems: "center",
+                cursor: "pointer",
                 fontSize: "1.2rem",
                 "&[data-active='true']": {
                   fontWeight: "bold",
@@ -53,22 +55,25 @@ export default function UssResponseInspector({ ussQuery, ...attributes }) {
               <inventory.icon
                 css={{ height: "1.4rem", width: "auto", fill: inactiveColor }}
               />
-              {inventory.label}
+              <div>
+                {inventory.label}
+                {inventory.itemTypes && (
+                  <div
+                    css={{
+                      fontSize: "0.9rem",
+                      fontWeight: "normal",
+                      opacity: 0.8,
+                    }}
+                  >
+                    {ussQuery.response.countDefaultItems(inventory)}{" "}
+                    {inventory.itemTypes[0].label}
+                  </div>
+                )}
+              </div>
             </button>
           </li>
         ))}
       </ul>
-      <div>
-        <ul>
-          {Object.entries(activeSearchResult.resultSet.itemsByItemType).map(
-            ([itemType, itemTypeData]) => (
-              <li key={itemType}>
-                {itemType} {Object.entries(itemTypeData.itemsById).length}
-              </li>
-            )
-          )}
-        </ul>
-      </div>
     </div>
   );
 }
