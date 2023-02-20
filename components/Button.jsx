@@ -15,6 +15,11 @@ const commonStyles = {
   ":focus": {
     outlineColor: highlightColor,
   },
+  "&:disabled": {
+    opacity: 0.5,
+    filter: "grayscale(0.5)",
+    cursor: "default",
+  },
 };
 
 const appearences = {
