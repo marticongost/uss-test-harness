@@ -27,10 +27,6 @@ export class UssResponse {
     this.data = data;
   }
 
-  getJsonString() {
-    return JSON.stringify(this.data, null, 2);
-  }
-
   getInventorySearchResult(searchInventoryType) {
     return this.data.searchResponse?.searchResult?.find(
       (searchResult) =>

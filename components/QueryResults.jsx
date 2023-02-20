@@ -3,7 +3,7 @@ import TableIcon from "../images/table.svg";
 import JsonIcon from "../images/brackets.svg";
 import MultiViewPanel from "./MultiViewPanel";
 import UssResponseInspector from "./UssResponseInspector";
-import CodeEditor from "./CodeEditor";
+import { JsonViewer } from "@textea/json-viewer";
 
 export default function QueryResults({ ussQuery, ...attributes }) {
   const [activeView, setActiveView] = useState("table");
@@ -20,7 +20,12 @@ export default function QueryResults({ ussQuery, ...attributes }) {
           json: {
             label: <JsonIcon />,
             title: "See results as JSON",
-            content: <CodeEditor value={ussQuery.response.getJsonString()} />,
+            content: (
+              <JsonViewer
+                value={ussQuery.response.data}
+                displayDataTypes={false}
+              />
+            ),
           },
         }
       }

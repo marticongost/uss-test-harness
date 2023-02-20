@@ -1,7 +1,7 @@
 import Button from "./Button";
 import EditIcon from "../images/edit.svg";
 import JsonIcon from "../images/brackets.svg";
-import CodeEditor from "./CodeEditor";
+import { JsonViewer } from "@textea/json-viewer";
 import { useState } from "react";
 import Form from "./Form";
 import MultiViewPanel from "./MultiViewPanel";
@@ -12,13 +12,9 @@ import UssQuery from "../modules/ussquery";
 
 export default function QueryInputs({ onUssQueryCompleted, ...attributes }) {
   const [formState, setFormState] = useState(getInitialFormState);
-  const [requestJson, setRequestJson] = useState(() =>
-    getRequestJson(formState)
+  const [requestBody, setRequestBody] = useState(() =>
+    ussFormToRequest(formState)
   );
-
-  function getRequestJson(formState) {
-    return JSON.stringify(ussFormToRequest(formState), null, 2);
-  }
 
   function handleViewChange(e) {
     setFormState({ ...formState, ...{ view: e.newValue } });
@@ -26,18 +22,18 @@ export default function QueryInputs({ onUssQueryCompleted, ...attributes }) {
 
   function handleFormStateChange(newState) {
     setFormState(newState);
-    setRequestJson(getRequestJson(newState));
+    setRequestBody(ussFormToRequest(newState));
   }
 
   function handleSubmit(e) {
     fetch("/api/uss/create-search", {
       method: "POST",
-      body: requestJson,
+      body: JSON.stringify(requestBody, null, 2),
       headers: { "Content-Type": "application/json" },
     })
       .then((response) => response.json())
       .then((responseData) =>
-        onUssQueryCompleted(new UssQuery(formState, requestJson, responseData))
+        onUssQueryCompleted(new UssQuery(formState, requestBody, responseData))
       );
   }
 
@@ -60,12 +56,7 @@ export default function QueryInputs({ onUssQueryCompleted, ...attributes }) {
         json: {
           label: <JsonIcon />,
           title: "Edit JSON",
-          content: (
-            <CodeEditor
-              value={requestJson}
-              onChange={(e) => setRequestJson(e.newValue)}
-            />
-          ),
+          content: <JsonViewer value={requestBody} displayDataTypes={false} />,
         },
       }}
       activeView={formState.view}

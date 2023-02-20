@@ -21,6 +21,7 @@
     "@emotion/babel-plugin": "^11.10.5",
     "@emotion/babel-preset-css-prop": "^11.10.0",
     "@protobuf-ts/plugin": "^2.8.2",
-    "@svgr/webpack": "^6.5.1"
+    "@svgr/webpack": "^6.5.1",
+    "@textea/json-viewer": "^2.13.1"
   }
 }
