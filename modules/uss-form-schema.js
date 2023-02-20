@@ -41,8 +41,15 @@ export const formSchema = [
         ],
       }),
       new FieldSet({
+        name: "tripElements",
+        label: "Trip elements",
+        visibility: (formState) => formState.intent == SEARCH_INTENT,
+        fields: [],
+      }),
+      new FieldSet({
         name: "locations",
         label: "Locations",
+        visibility: (formState) => formState.intent == EXPLORE_INTENT,
         fields: [
           new Field({
             name: "origin",
@@ -61,6 +68,7 @@ export const formSchema = [
       new FieldSet({
         name: "dates",
         label: "Dates",
+        visibility: (formState) => formState.intent == EXPLORE_INTENT,
         fields: [
           new BooleanField({
             name: "oneWay",
@@ -90,6 +98,7 @@ export const formSchema = [
       new FieldSet({
         name: "targetGeoLevel",
         label: "Target geo level",
+        visibility: (formState) => formState.intent == EXPLORE_INTENT,
         fields: [
           new StringField({
             name: "targetGeoLevel",
