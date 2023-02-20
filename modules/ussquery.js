@@ -1,12 +1,5 @@
 import { inventories } from "./inventories";
 
-export default class UssQuery {
-  constructor(formState, requestBody, responseData) {
-    this.request = new UssRequest(formState, requestBody);
-    this.response = new UssResponse(responseData);
-  }
-}
-
 export class UssRequest {
   constructor(formState, body) {
     this.formState = formState;

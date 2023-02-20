@@ -6,6 +6,7 @@ import { sideMargin } from "../modules/styles";
 import { useState } from "react";
 
 export default function App() {
+  const [ussQueryInProgress, setUssQueryInProgress] = useState(false);
   const [ussQuery, setUssQuery] = useState(null);
   return (
     <div css={{ display: "flex", flexDirection: "column", height: "100vh" }}>
@@ -46,10 +47,24 @@ export default function App() {
         }}
       >
         <QueryInputs
-          onUssQueryCompleted={setUssQuery}
+          ussQueryInProgress={ussQueryInProgress}
+          onUssQueryStarted={(ussQuery) => {
+            console.log("Query started", ussQuery);
+            setUssQuery(ussQuery);
+            setUssQueryInProgress(true);
+          }}
+          onUssQueryCompleted={(ussQuery) => {
+            console.log("Query completed", ussQuery);
+            setUssQuery(ussQuery);
+            setUssQueryInProgress(false);
+          }}
           css={{ borderRight: "1px solid #ddd", width: "40rem" }}
         />
-        <QueryResults ussQuery={ussQuery} css={{ flex: "1 1 auto" }} />
+        <QueryResults
+          ussQuery={ussQuery}
+          ussQueryInProgress={ussQueryInProgress}
+          css={{ flex: "1 1 auto" }}
+        />
       </main>
 
       <footer

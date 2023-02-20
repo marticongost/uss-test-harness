@@ -8,13 +8,20 @@ import MultiViewPanel from "./MultiViewPanel";
 import { formSchema } from "../modules/uss-form-schema";
 import { ussFormToRequest } from "../modules/uss-form-adapter";
 import { getDefaults } from "../modules/schema";
-import UssQuery from "../modules/ussquery";
+import { UssRequest, UssResponse } from "../modules/ussquery";
 
-export default function QueryInputs({ onUssQueryCompleted, ...attributes }) {
+export default function QueryInputs({
+  ussQueryInProgress,
+  onUssQueryStarted,
+  onUssQueryCompleted,
+  ...attributes
+}) {
   const [formState, setFormState] = useState(getInitialFormState);
   const [requestBody, setRequestBody] = useState(() =>
     ussFormToRequest(formState)
   );
+
+  const buttonWidth = "5rem";
 
   function handleViewChange(e) {
     setFormState({ ...formState, ...{ view: e.newValue } });
@@ -26,15 +33,21 @@ export default function QueryInputs({ onUssQueryCompleted, ...attributes }) {
   }
 
   function handleSubmit(e) {
+    const ussQuery = {
+      request: new UssRequest(formState, requestBody),
+      response: null,
+    };
+    onUssQueryStarted(ussQuery);
     fetch("/api/uss/create-search", {
       method: "POST",
       body: JSON.stringify(requestBody, null, 2),
       headers: { "Content-Type": "application/json" },
     })
       .then((response) => response.json())
-      .then((responseData) =>
-        onUssQueryCompleted(new UssQuery(formState, requestBody, responseData))
-      );
+      .then((responseData) => {
+        ussQuery.response = new UssResponse(responseData);
+        onUssQueryCompleted(ussQuery);
+      });
   }
 
   return (
@@ -61,7 +74,15 @@ export default function QueryInputs({ onUssQueryCompleted, ...attributes }) {
       }}
       activeView={formState.view}
       onViewChange={handleViewChange}
-      buttons={<Button onClick={handleSubmit}>Send</Button>}
+      buttons={
+        <Button
+          disabled={!!ussQueryInProgress}
+          onClick={handleSubmit}
+          css={{ width: buttonWidth }}
+        >
+          Send
+        </Button>
+      }
     />
   );
 }

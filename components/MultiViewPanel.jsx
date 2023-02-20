@@ -61,6 +61,7 @@ export default function MultiViewPanel({
         }}
       >
         {views && views[activeView]?.content}
+        {children}
       </div>
     </section>
   );
