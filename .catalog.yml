@@ -1,0 +1,12 @@
+---
+version: "1"
+type: "tooling"
+component:
+  name: "uss-playground"
+  owner: "spyro"
+  description: "Web based test harness for Unified Search Service."
+  serviceClass: "economy-class"
+  personalDataHandling: none
+  soxScope: False
+  paymentProcessing: False
+  outOfHoursSupportRequired: False
