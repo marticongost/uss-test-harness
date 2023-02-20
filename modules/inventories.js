@@ -17,6 +17,7 @@ export class Inventory {
     shorthand,
     intent,
     icon,
+    itemTypes,
     inventoryOptions,
   }) {
     this.label = label;
@@ -26,11 +27,19 @@ export class Inventory {
     this.intent = intent; // bitmap of SEARCH_INTENT and EXPLORE_INTENT
     this.icon = icon;
     this.inventoryOptions = inventoryOptions || [];
+    this.itemTypes = itemTypes;
     // TODO: Backend and squad resources (GitHub project, GitHub link for the Protobuf schemas, Slack channel & greenflag handle)
   }
 
   appliesToIntent(intent) {
     return this.intent & intent;
+  }
+}
+
+export class ItemType {
+  constructor({ name, label }) {
+    this.name = name;
+    this.label = label;
   }
 }
 
@@ -89,6 +98,7 @@ export const inventories = [
         ],
       }),
     ],
+    itemTypes: [new ItemType({ name: "quote", label: "quotes" })],
   }),
   new Inventory({
     label: "Hotels indicative",
@@ -97,6 +107,7 @@ export const inventories = [
     shorthand: "htin",
     intent: EXPLORE_INTENT,
     icon: HotelIcon,
+    itemTypes: [new ItemType({ name: "prices", label: "quotes" })],
   }),
   new Inventory({
     label: "Travel Restrictions",
@@ -117,6 +128,7 @@ export const inventories = [
         ],
       }),
     ],
+    itemTypes: [new ItemType({ name: "detail", label: "restriction details" })],
   }),
   new Inventory({
     label: "Images",
@@ -125,6 +137,7 @@ export const inventories = [
     shorthand: "img",
     intent: EXPLORE_INTENT,
     icon: ImageIcon,
+    itemTypes: [new ItemType({ name: "images", label: "images" })],
   }),
   new Inventory({
     label: "Adverts",
@@ -135,5 +148,6 @@ export const inventories = [
     shorthand: "ads",
     intent: EXPLORE_INTENT,
     icon: AdvertIcon,
+    itemTypes: [new ItemType({ name: "adverts", label: "adverts" })],
   }),
 ];
